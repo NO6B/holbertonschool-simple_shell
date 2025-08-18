@@ -1,0 +1,25 @@
+# Build artifacts
+*.o
+a.out
+hsh
+
+# Editor swap / backup
+*~
+*.swp
+*.swo
+*.tmp
+*.un~
+\#*#
+
+# Logs / outputs
+*.log
+*.out
+
+# macOS metadata
+.DS_Store
+
+# Test 
+tests/
+
+# Betty reports (if you save them)
+betty-report*
