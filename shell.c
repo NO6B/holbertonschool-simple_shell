@@ -34,7 +34,7 @@ int main(void)
 
         if (isatty(STDIN_FILENO))
         {
-            printf("#cisfun$ ");
+            printf("$ ");
             fflush(stdout);
         }
 
@@ -45,10 +45,6 @@ int main(void)
 
 
         line[my_strcspn(line, "\n")] = '\0';
-
-
-        if (line[0] == '\0')
-            continue;
 
 
            
