@@ -55,7 +55,7 @@ int main()
 
 
 			perror("./shell");
-			exit(-1);
+			exit(127);
 		}
 		else if (pid > 0)
 		{
