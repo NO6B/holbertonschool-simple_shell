@@ -48,7 +48,9 @@ int main()
 		pid = fork();
 		if (pid == 0)
 		{
-			char *argv[2]; argv[0] = line; NULL;
+			char *argv[2];
+			argv[0] = line;  
+			argv [1] = NULL;
 			execve(line, argv, environ);
 
 
