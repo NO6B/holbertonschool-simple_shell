@@ -1,8 +1,17 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#include <stddef.h>
-size_t my_strcspn(const char *s, const char *reject);
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <errno.h>
 
-#endif
+/* Headers */
+#include "parser.h"
+#include "executor.h"
+#include "utils.h"
 
+#endif /* SHELL_H */
