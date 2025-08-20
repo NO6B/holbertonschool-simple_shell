@@ -18,7 +18,7 @@ void execute_command(char *command)
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("fork");
+		perror("./hsh");
 		return;
 	}
 
@@ -31,7 +31,7 @@ void execute_command(char *command)
 
 		if (execve(command, argv, environ) == -1)
 		{
-			perror("simple_shell");
+			perror("./hsh");
 			exit(EXIT_FAILURE);
 		}
 	}

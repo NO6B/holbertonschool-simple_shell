@@ -20,7 +20,6 @@ int main(void)
 
 		if (command == NULL) /* Handle Ctrl+D (EOF) */
 		{
-			printf("\n");
 			break;
 		}
 
