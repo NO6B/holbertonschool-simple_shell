@@ -1,28 +1,18 @@
 #include "shell.h"
 
-void execute_command(char *command)
+/**
+ * execute_command - Fork and execute a command with execve
+ * @args : array of arguments (command + NULL)
+ * @argv: Argument vector
+ * @line_number: current line number
+ * @envp: environment variables
+ * Return: the status code of the child process
+ */
+void execute_command(char *argv, char **args, int line_number, char **envp)
 {
-	pid_t pid;
-	char *argv[2];
-
-	argv[0] = command;
-	argv[1] = NULL;
-
-	pid = fork();
-	if (pid == 0)
+	if (execve(args[0], args, envp) == -1)
 	{
-		if (execve(command, argv, environ) == -1)
-		{
-			perror("Error");
-			exit(1);
-		}
-	}
-	else if (pid > 0)
-	{
-		wait(NULL);
-	}
-	else
-	{
-		perror("fork");
+		fprintf(stderr, "%s: %d: %s: not found\n", argv, line_number, args[0]);
+		exit(127);
 	}
 }
