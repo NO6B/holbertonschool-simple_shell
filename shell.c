@@ -24,7 +24,7 @@ size_t my_strcspn(const char *s, const char *reject)
 	return (i);
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
     char *line = NULL;
     size_t len = 0;
@@ -48,7 +48,7 @@ int main(int argc, char const *argv[])
 		pid = fork();
 		if (pid == 0)
 		{
-			char *argv[] = {line, NULL};
+			char *argv[2]; argv[0] = line; NULL;
 			execve(line, argv, environ);
 
 
