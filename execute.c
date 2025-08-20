@@ -1,16 +1,17 @@
 #include "shell.h"
 
-void execute_command(char **argv)
+void execute_command(char *command)
 {
 	pid_t pid;
+	char *argv[2];
 
-	if (!argv || !argv[0])
-		return;
+	argv[0] = command;
+	argv[1] = NULL;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(argv[0], argv, environ) == -1)
+		if (execve(command, argv, environ) == -1)
 		{
 			perror("Error");
 			exit(1);

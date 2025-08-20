@@ -1,14 +1,11 @@
 
 #include "shell.h"
 
-
-
 int main(void)
 {
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t nread;
-	char *argv;
 
 	while (1)
 	{
@@ -25,9 +22,7 @@ int main(void)
 		if (line[0] == '\0')
 			continue; /* Ignore empty lines */
 
-		argv = tokenize_line(line);
-		execute_command(argv);
-		free(argv);
+		execute_command(line);
 	}
 	free(line);
 	return (0);
