@@ -31,11 +31,14 @@ int main()
     ssize_t nread;
     pid_t pid;
 
-	while (1)
+
+    	while (1)
 	{
+		if(isatty(STDIN_FILENO))
+		{
 		printf("#cisfun$ ");
 		fflush(stdout);
-
+		}
 		nread = getline(&line, &len, stdin);
 		if (nread == -1)
 		{
