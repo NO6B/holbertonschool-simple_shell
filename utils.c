@@ -32,7 +32,7 @@ char *trim_whitespace(char *str)
 {
 	char *end;
 
-	if (!str)
+	if (str == NULL)
 		return (NULL);
 
 	/* Trim leading space and tabs */
