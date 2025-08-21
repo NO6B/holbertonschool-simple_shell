@@ -13,5 +13,6 @@
 void execute_command(char *command, char *shell_name, char **env);
 int is_empty_line(char *line);
 char *trim_whitespace(char *str);
+char *find_in_path(const char *cmd, char **env);
 
 #endif /* SHELL_H */
