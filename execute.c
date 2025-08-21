@@ -49,14 +49,39 @@ void run_command(char **args, char *shell_name, char **env)
 void execute_command(char *command, char *shell_name, char **env)
 {
 	char *trimmed_command;
+	char *cmd_path;
 
 	char *args[64];
 
 	trimmed_command = trim_whitespace(command);
+	cmd_path = NULL;
 
 	if (!trimmed_command || *trimmed_command == '\0')
 		return;
 
 	tokenize_args(trimmed_command, args, 64);
+	if (!args[0])
+		return;
+
+	/* If command contains '/', treat as path, else search PATH */
+	if (strchr(args[0], '/'))
+	{
+		if (access(args[0], X_OK) == 0)
+			cmd_path = args[0];
+	}
+	else
+	{
+		cmd_path = find_in_path(args[0], env);
+	}
+
+	if (!cmd_path)
+	{
+		fprintf(stderr, "%s: 1: %s: not found\n", shell_name, args[0]);
+		return;
+	}
+
+	args[0] = cmd_path;
 	run_command(args, shell_name, env);
+	if (cmd_path != args[0])
+		free(cmd_path);
 }
