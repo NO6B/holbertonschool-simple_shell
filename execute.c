@@ -17,7 +17,7 @@ void execute_command(char *command, char *shell_name, char **env)
 	trimmed_command = trim_whitespace(command);
 
 	/* Skip if command is empty after trimming */
-	if (!trimmed_command || *trimmed_command == '\0')
+	if (trimmed_command == NULL || *trimmed_command == '\0')
 		return;
 
 	/* Prepare arguments for execve */
