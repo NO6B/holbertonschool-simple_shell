@@ -1,0 +1,112 @@
+.TH HSH 1 "January 2025" "Version 1.0" "Simple Shell Manual"
+
+.SH NAME
+hsh - simple command-line interpreter
+
+.SH SYNOPSIS
+.B hsh
+.br
+.B echo "command" | hsh
+
+.SH DESCRIPTION
+.B hsh
+is a simple UNIX command-line interpreter that mimics basic functionality of
+.BR sh (1).
+It can run in both interactive and non-interactive modes, executing commands by searching for them in the directories listed in the PATH environment variable.
+
+.SH MODES
+
+.SS Interactive Mode
+In interactive mode,
+.B hsh
+displays a prompt
+.B (#cisfun$ )
+and waits for the user to type a command. After executing the command, the shell displays the prompt again and waits for the next command.
+
+.SS Non-Interactive Mode
+In non-interactive mode, .B hsh reads commands from standard input or from a file and executes them without displaying a prompt.
+
+.SH COMMAND EXECUTION
+Commands are executed by:
+.IP 1. 4
+Parsing the input line into command and arguments
+.IP 2. 4
+If the command contains a '/', it is treated as a path
+.IP 3. 4
+Otherwise, the command is searched for in the PATH environment variable
+.IP 4. 4
+If found, the command is executed using
+.BR execve (2)
+.IP 5. 4
+The parent process waits for the child to complete
+
+.SH BUILT-IN COMMANDS
+Currently, this shell does not implement any built-in commands. All commands are external programs.
+
+.SH ENVIRONMENT
+.TP
+.B PATH
+A colon-separated list of directories in which to search for commands.
+
+.SH EXIT STATUS
+.B hsh
+exits with the following values:
+.TP
+.B 0
+Successful execution
+.TP
+.B 127
+Command not found
+.TP
+.B Other
+Exit status of the last executed command
+
+.SH EXAMPLES
+
+.SS Interactive Mode .nf $ ./hsh #cisfun$ ls -la total 32 drwxr-xr-x 2 user user 4096 Jan 15 10:30 . drwxr-xr-x 3 user user 4096 Jan 15 10:00 .. -rwxr-xr-x 1 user user 8760 Jan 15 10:30 hsh #cisfun$ pwd /home/user/simple_shell #cisfun$ exit .fi
+
+.SS Non-Interactive Mode
+.nf
+$ echo "ls" | ./hsh
+file1.txt  file2.txt  hsh
+
+$ echo -e "pwd\nls -l" | ./hsh /home/user/simple_shell total 16 -rw-r--r-- 1 user user 150 Jan 15 10:30 file1.txt -rw-r--r-- 1 user user 200 Jan 15 10:30 file2.txt -rwxr-xr-x 1 user user 8760 Jan 15 10:30 hsh .fi
+
+.SH ERROR HANDLING
+When a command is not found, the shell displays an error message in the format:
+.br
+.B shell_name: 1: command: not found
+
+.SH FILES
+.TP
+.B /bin/sh
+The standard shell, for comparison
+.TP
+.B /usr/bin/env
+Used to find the PATH environment variable
+
+.SH BUGS
+
+Does not handle quotes in arguments
+No support for redirection (>, <, >>)
+No support for pipes (|)
+No command history
+No job control
+No alias support
+.SH AUTHORS
+Written by Abdelrahman and Sunny.
+
+.SH COPYRIGHT
+This is free software; see the source for copying conditions.
+
+.SH SEE ALSO
+.BR sh (1),
+.BR bash (1),
+.BR execve (2),
+.BR fork (2),
+.BR wait (2)
+
+For more information about shell programming:
+.BR "Advanced Programming in the UNIX Environment"
+by W. Richard Stevens and Stephen A. Rago
+
